@@ -19,3 +19,6 @@ Tact is a CLI tool that measures your typing speed and accuracy, similar to [mon
 
 - `n` - number of words to type (min: 1, max: 100, default: 25)
 - `w` - wordset to use (default: "english", available wordsets in `/wordsets`, thanks to [monkeytype](https://github.com/monkeytypegame/monkeytype/tree/master/frontend/static/languages))
+
+> [!TIP]
+> You can use a custom wordset by creating a new file in `/wordsets` and using the filename as the flag value
