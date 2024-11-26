@@ -39,7 +39,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyCtrlC, tea.KeyEsc:
 			return m, tea.Quit
 		case tea.KeyTab:
-			return initialModel(m.wordCount), nil
+			return initialModel(m.wordCount, m.wordset), nil
 		case tea.KeySpace:
 			if !m.hasStarted {
 				m.hasStarted = true

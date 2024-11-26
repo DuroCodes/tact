@@ -16,12 +16,12 @@ func max(a, b int) int {
 	return b
 }
 
-func generateWords(_count int) []string {
+func generateWords(count int, wordset string) []string {
 	fallbackWords := []string{
 		"the", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog",
 	}
 
-	file, err := os.Open("words.txt")
+	file, err := os.Open("wordsets/" + wordset)
 	if err != nil {
 		return fallbackWords
 	}
@@ -40,9 +40,10 @@ func generateWords(_count int) []string {
 		return fallbackWords
 	}
 
-	result := make([]string, _count)
-	for i := 0; i < _count; i++ {
-		result[i] = words[rand.Intn(len(words))]
+	result := make([]string, count)
+	for i := 0; i < count; i++ {
+		word := words[rand.Intn(len(words))]
+		result[i] = strings.ToLower(word)
 	}
 	return result
 }
@@ -56,4 +57,13 @@ func clearScreen() {
 	}
 	cmd.Stdout = os.Stdout
 	cmd.Run()
+}
+
+func contains(validWordsets []string, s string) bool {
+	for _, wordset := range validWordsets {
+		if wordset == s {
+			return true
+		}
+	}
+	return false
 }

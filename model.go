@@ -25,9 +25,10 @@ type model struct {
 	stopwatch    stopwatch.Model
 	wpmTicker    *time.Ticker
 	wordCount    int
+	wordset      string
 }
 
-func initialModel(wordCount int) model {
+func initialModel(wordCount int, wordset string) model {
 	ti := textinput.New()
 	ti.Focus()
 
@@ -38,7 +39,7 @@ func initialModel(wordCount int) model {
 
 	return model{
 		textInput:  ti,
-		words:      generateWords(wordCount),
+		words:      generateWords(wordCount, wordset),
 		startTime:  time.Now(),
 		hasStarted: false,
 		typedWords: make([]string, 0),

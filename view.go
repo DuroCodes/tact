@@ -15,16 +15,16 @@ func (m model) View() string {
 		accuracy := float64(m.correctChars) / float64(m.totalChars) * 100
 
 		titleStyle := lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#7AA2F7")).
+			Foreground(lipgloss.Color("4")).
 			Bold(true).
 			Margin(1)
 
 		statStyle := lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#9ECE6A")).
+			Foreground(lipgloss.Color("2")).
 			Padding(0, 2)
 
 		instructionStyle := lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#565F89")).
+			Foreground(lipgloss.Color("8")).
 			Margin(1)
 
 		timeStr := ""
@@ -55,9 +55,9 @@ func (m model) View() string {
 
 	var lineContent strings.Builder
 	normalStyle := lipgloss.NewStyle()
-	wrongStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("#FF5C57")).Underline(true)
+	wrongStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("1")).Underline(true)
 	cursorStyle := lipgloss.NewStyle().Reverse(true)
-	futureStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("#6272A4"))
+	futureStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("8"))
 
 	for i, word := range m.words {
 		if i == m.currentWord {
@@ -96,7 +96,7 @@ func (m model) View() string {
 	wrapped := wordwrap.String(lineContent.String(), maxWidth)
 	s.WriteString(wrapped)
 
-	statusStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("#626262"))
+	statusStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("241"))
 	wordsTyped := fmt.Sprintf("%d/%d", m.currentWord, len(m.words))
 	accuracy := float64(m.correctChars) / float64(max(m.totalChars, 1)) * 100
 	wpm := m.lastWPM
@@ -110,14 +110,11 @@ func (m model) View() string {
 		if elapsedTime.Seconds() < 60 {
 			elapsed = fmt.Sprintf("%.2fs", elapsedTime.Seconds())
 		} else {
-			elapsed = fmt.Sprintf("%d:%05.2f",
-				int(elapsedTime.Minutes()),
-				elapsedTime.Seconds()-float64(int(elapsedTime.Minutes())*60))
+			elapsed = fmt.Sprintf("%d:%05.2f", int(elapsedTime.Minutes()), elapsedTime.Seconds()-float64(int(elapsedTime.Minutes())*60))
 		}
 	}
 
-	status := fmt.Sprintf("\n %s • %.0f • %.0f%% • %s",
-		wordsTyped, wpm, accuracy, elapsed)
+	status := fmt.Sprintf("\n%s • %.0f • %.0f%% • %s", wordsTyped, wpm, accuracy, elapsed)
 	s.WriteString(statusStyle.Render(status))
 
 	s.WriteString("\n")
